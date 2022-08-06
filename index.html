@@ -1,27 +1,44 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Google Calendar API Quickstart</title>
+    <title>Google Calendar Booking Checker</title>
     <meta charset="utf-8" />
+    <link href="style.css"rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
   </head>
   <body>
-    <h1>Google Calendar API Quickstart</h1>
+    <h1>Google Calendar Booking Checker</h1>
+    <div class="content">
+      <h1>Enter the date</h1>
+      <form>
+          <input class="input" onblur="getVal()" type="date">
+          <br><br>
+          
+      </form>
+      <button id="authorize_button" onclick="handleAuthClick()">Check</button>
+      <button id="signout_button" onclick="handleSignoutClick()">Log Out</button>
+     <pre id="content" style="white-space: pre-wrap;"></pre>
+    </div>
 
     <!--Add buttons to initiate auth sequence and sign out-->
-    <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
-    <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
 
-    <pre id="content" style="white-space: pre-wrap;"></pre>
 
     <script type="text/javascript">
+      let val,dtv="0";
+      function getVal() {
+            val = document.querySelector('input[type="date"]');
+            dtv=val.value;
+          }
       /* exported gapiLoaded */
       /* exported gisLoaded */
       /* exported handleAuthClick */
       /* exported handleSignoutClick */
 
       // TODO(developer): Set to client ID and API key from the Developer Console
-      const CLIENT_ID = '579489135631-q9oqv84hnpupsnet9bp57lek0csvknmr.apps.googleusercontent.com';
-      const API_KEY = 'AIzaSyDZ_x9S9T0lSN7z53eBeF8jtH-CQMQ5ae0';
+      const CLIENT_ID = 'client id';
+      const API_KEY = 'api-key';
 
       // Discovery doc URL for APIs used by the quickstart
       const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
@@ -144,10 +161,18 @@
           return;
         }
         // Flatten to string to display
-        const output = events.reduce(
-            (str, event) => `${str}${event.summary} (${event.start.dateTime || event.start.date})\n`,
-            'Events:\n');
-        document.getElementById('content').innerText = output;
+        let cflag=0;
+        console.log(dtv)
+        const flag = events.forEach(event => {
+          if(event.start.dateTime == dtv || event.start.date == dtv){
+            document.getElementById('content').innerText = "Reservations already made"
+            cflag=1;
+          }
+        });
+        if (cflag==0) {
+          document.getElementById('content').innerText ="Reservation possible"
+        }
+      
       }
     </script>
     <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>

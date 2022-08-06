@@ -1,17 +1,34 @@
 body{
     height: 100vh;
-    width: 100vh;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    font-family: 'Montserrat';
+    background-color: #f1faee;
 }
 .content{
     width: 500px;
     height: 500px;
-    background-color: aqua;
+    background-color: #a8dadc;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+.input{
+    width: 150px;
+    height: 30px;
+}
+#authorize_button , #signout_button{
+    font-family: 'Montserrat';
+    width: 150px;
+    height: 50px;
+    border-radius: 15px;
+    font-size: 25px;
+}
+#content{
+    font-size: 30px;
 }
